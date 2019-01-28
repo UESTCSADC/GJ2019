@@ -5,12 +5,37 @@ using UnityEngine.XR.WSA.Persistence;
 
 public class Person
 {
+    //固定人物
+    public Person(float so, float i, float st, float ac, bool se, string name,int age)
+    {
+        b_social = so;
+        b_acqierement = ac;
+        b_intelligence = i;
+        b_stamina = st;
+        b_sexual = se;
+        b_name = name;
+        p_age = age;
+    }
+
+    //随机人物
+    public Person(int age)
+    {
+
+    }
+
+    public Person()
+    {
+
+    }
+
     //基本属性
     protected float b_social;             //社交
     protected float b_intelligence;       //智力
     protected float b_stamina;            //体能
     protected float b_acqierement;        //才艺
-    protected float b_sexual;             //性别
+    protected bool b_sexual;             //性别
+
+    public string b_name;                 //名字
 
     //常量系数
     protected const float c_socialSpeed_B = 1.0f;
