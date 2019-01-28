@@ -78,7 +78,11 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 0.24264705, b: 0.24264705, a: 0.153}
     - _BaseLineColor: {r: 0.9558824, g: 0.4990268, b: 0.58409643, a: 1}
+<<<<<<< HEAD
     - _Center: {r: 858.0338, g: 546.5085, b: 100, a: 0}
+=======
+    - _Center: {r: 459, g: 202, b: 100, a: 0}
+>>>>>>> d26a886cc826d48e7cb47f6e77d81abb0e3cb42d
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CoreColor: {r: 0.2867647, g: 0.366633, b: 0.75, a: 0.453}
     - _CoreLineColor: {r: 0.36764705, g: 0.63367134, b: 1, a: 1}
