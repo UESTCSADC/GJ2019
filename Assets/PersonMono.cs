@@ -15,24 +15,37 @@ public class PersonMono : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
     private bool isMoving;
 
 	// Use this for initialization
-	void Start ()
-	{
-	    if (m_PersonInformation == null)
-	    {
-	        m_PersonInformation = GameObject.Find("PersonInformation");
-	        m_PersonInformation.SetActive(false);
-	    }
+    void Awake()
+    {
+        if (m_PersonInformation == null)
+        {
+            m_PersonInformation = GameObject.Find("PersonInformation");
+            m_PersonInformation.SetActive(false);
+        }
 
-	    leftClick.AddListener(new UnityAction(ButtonLeftClick));
-	    rightClick.AddListener(new UnityAction(ButtonRightClick));
+        leftClick = new UnityEvent();
+        rightClick = new UnityEvent();
     }
-	
-	// Update is called once per frame
+
+    void Start()
+    {
+        leftClick.AddListener(new UnityAction(ButtonLeftClick));
+        rightClick.AddListener(new UnityAction(ButtonRightClick));
+
+        isMoving = false;
+    }
+
+    // Update is called once per frame
 	void Update ()
 	{
 	    if (isMoving)
 	    {
-	        transform.position = Input.mousePosition;
+	        Vector3 pPro = GameScene.m_Camera.WorldToScreenPoint(GameScene.m_Player.transform.position);
+	        float px = pPro.x;
+	        float py = pPro.y;
+
+            Vector3 dir = Vector3.Normalize(new Vector3(Input.mousePosition.x - px,Input.mousePosition.y - py,0));
+	        transform.localPosition = m_person.getDistance(Player.getInstance()) * dir;
 	    }
 	}
 

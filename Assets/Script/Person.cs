@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.WSA.Persistence;
+using Random = System.Random;
 
 public class Person
 {
@@ -15,18 +17,22 @@ public class Person
         b_sexual = se;
         b_name = name;
         p_age = age;
+        friendList = new List<RelationShip>();
     }
 
     //随机人物
-    public Person(int age)
+    public Person(int age,string name)
     {
-
+        friendList = new List<RelationShip>();
+        p_age = age;
+        b_name = name;
     }
 
-    public Person()
+    public void Awake()
     {
-
+        
     }
+
 
     //基本属性
     protected float b_social;             //社交
@@ -53,17 +59,27 @@ public class Person
         public Person p1;
         public Person p2;
         public float Distance;
+        public GameObject LineRender;
     }
 
     //游戏内属性
     protected Dictionary<Skills, float> p_skillList;
     protected List<RelationShip> friendList;
     protected int p_age;
+    private PersonMono m_PersonMono;
 
     //游戏内的所有关系
-    static private List<RelationShip> relationShips;
+    static private List<RelationShip> relationShips = new List<RelationShip>();
+    static private List<Person> persons = new List<Person>();
 
     //方法
+    public void init()
+    {
+        relationShips.Clear();
+        persons.Clear();
+        persons.Add(Player.getInstance());
+    }
+
     public float getSocialSpeed(Person p)
     {
         return (b_social + p.b_social) * c_socialSpeed_B * 
@@ -82,45 +98,77 @@ public class Person
         return 0;
     }
 
-    static public void buildRelationShip(Person p1, Person p2, float dis)
+    public void setMono(PersonMono pm)
     {
-        RelationShip R = new RelationShip();
-        R.p1 = p1;
-        R.p2 = p2;
-        R.Distance = dis;
-        p1.friendList.Add(R);
-        p2.friendList.Add(R);
-        relationShips.Add(R);
+        m_PersonMono = pm;
     }
-}
 
-public class Player : Person
-{
-    //单例
-    public static Player playerInstance
+    public static GameObject showPerson(string name)
     {
-        get
+        foreach (var p in persons)
         {
-            if (playerInstance == null)
+            if (p.b_name == name && p.m_PersonMono == null)
             {
-                playerInstance = new Player();
+                GameObject pmono = GameObject.Instantiate(Resources.Load("Person") as GameObject);
+                pmono.transform.parent = GameObject.Find("Scene").transform;
+                pmono.transform.localScale = new Vector3(1,1,1);
+                
+                pmono.transform.localPosition = new Vector3(UnityEngine.Random.value,UnityEngine.Random.value,0);
+                pmono.GetComponent<PersonMono>().m_person = p;
+                p.setMono(pmono.GetComponent<PersonMono>());
+                pmono.name = name;
+                return pmono;
             }
-
-            return playerInstance;
         }
-        set { playerInstance = value; }
+
+        return null;
     }
 
-    //方法
-    float getCoreSocialRadius()
+    public static void DrawRelationShip()
     {
-        return b_social * 2.0f;
+        foreach (var rs in relationShips)
+        {
+            if (rs.p1.m_PersonMono != null && rs.p2.m_PersonMono != null)
+            {
+                LineRenderer lr = rs.LineRender.GetComponent<LineRenderer>();
+                lr.SetPosition(0, rs.p1.m_PersonMono.gameObject.transform.position);
+                lr.SetPosition(1, rs.p2.m_PersonMono.gameObject.transform.position);
+            }
+        }
     }
 
-    float getBaseSocialRadius()
+    public static void AddPerson(string name,int age)
     {
-        return b_social * 0.5f;
+        Person p = new Person(age,name);
+        persons.Add(p);
     }
 
+    static public void buildRelationShip(GameObject p1, GameObject p2, float dis)
+    {
+        Person pp1 = p1.GetComponent<PersonMono>().m_person;
+        Person pp2 = p2.GetComponent<PersonMono>().m_person;
 
+        RelationShip R = new RelationShip();
+        R.p1 = pp1;
+        R.p2 = pp2;
+        R.Distance = dis;
+
+        if (p1.name == "Player")
+        {
+            p2.transform.localPosition = Vector3.Normalize(p2.transform.localPosition - p1.transform.localPosition) * dis;
+        }
+
+        R.LineRender = new GameObject();
+        R.LineRender.AddComponent<LineRenderer>();
+        LineRenderer lr = R.LineRender.GetComponent<LineRenderer>();
+        lr.startWidth = 0.1f;
+        lr.endWidth = 0.1f;
+        R.LineRender.layer = 5;
+
+        p1.GetComponent<PersonMono>().m_person.friendList.Add(R);
+        p2.GetComponent<PersonMono>().m_person.friendList.Add(R);
+        relationShips.Add(R);
+        
+    }
 }
+

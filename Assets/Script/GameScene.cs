@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 public class GameScene : MonoBehaviour
 {
     private GameObject m_SocialRadius;
-    private GameObject m_Player;
+    public static GameObject m_Player;
     public static Camera m_Camera;
     private GameObject m_Information;
 
@@ -18,25 +19,45 @@ public class GameScene : MonoBehaviour
     public static bool isMovingPerson;
 
 	// Use this for initialization
-	void Start () {
-		m_SocialRadius = GameObject.Find("SocialRadius");
+    void Awake()
+    {
+        m_SocialRadius = GameObject.Find("SocialRadius");
         m_Player = GameObject.Find("Player");
-	    m_Camera = GameObject.Find("MainCamera").GetComponent<Camera>();
+        m_Player.GetComponent<PersonMono>().m_person = Player.getInstance();
+        m_Player.GetComponent<PersonMono>().m_person.setMono(m_Player.GetComponent<PersonMono>());
+        m_Camera = GameObject.Find("MainCamera").GetComponent<Camera>();
         m_Information = GameObject.Find("Information");
+    }
 
+    void Start () {
         m_Information.SetActive(false);
 	    mousePosRecord = Input.mousePosition;
+
+        Person.AddPerson("JK",24);
+        Person.showPerson("JK");
+        Person.buildRelationShip(m_Player,GameObject.Find("JK"),300);
 	}
-	
-	// Update is called once per frame
+
+    void FixedStart()
+    {
+
+    }
+
+    // Update is called once per frame
 	void Update () {
 		doInput();
         UpdateSocialRadius();
+        
 	}
+
+    void LateUpdate()
+    {
+        Person.DrawRelationShip();
+    }
 
     void doInput()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !isMovingPerson)
         {
             transform.localPosition += Input.mousePosition - mousePosRecord;
         }
@@ -54,7 +75,7 @@ public class GameScene : MonoBehaviour
 
     void AddPerson()
     {
-        Person J = new Person(5,5,5,5,true,"JK",24);
+       
     }
 
     public void ClickMenu()
