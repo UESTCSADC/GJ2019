@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: SocialRadius
-  m_Shader: {fileID: 4800000, guid: 33db164303ff57449b9ab1461f9002db, type: 3}
+  m_Name: BaseFore
+  m_Shader: {fileID: 4800000, guid: 7518f451dceda144cb15ae26131527d1, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -55,31 +55,31 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BaseLineSize: 1
-    - _BaseRadius: 177.91
+    - _Acq: 0.62
     - _BumpScale: 1
-    - _CoreLineSize: 1
-    - _CoreRadius: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DotRadius: 0.02
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Int: 0.83
+    - _LineSize: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
+    - _Soc: 0.85
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Sta: 0.7
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.47794116, b: 0.47794116, a: 0.322}
-    - _BaseLineColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Center: {r: 999.9511, g: 471.84824, b: 100, a: 0}
+    - _AreaColor: {r: 0.76021844, g: 0.80827016, b: 0.9485294, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _CoreColor: {r: 1, g: 1, b: 1, a: 1}
-    - _CoreLineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _DotColor: {r: 0.8897059, g: 0.5102725, b: 0.5102725, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _LineColor: {r: 0, g: 0, b: 0, a: 1}

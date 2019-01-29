@@ -35,19 +35,3 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-.vs/GJ2019/v15/.suo
-Assets/Mat&Shader/BaseFore.mat
-Assets/Mat&Shader/BaseFore.mat.meta
-Assets/Mat&Shader/BaseFore.shader
-Assets/PersonMono.cs
-Assets/PersonMono.cs.meta
-Assets/Script/PersonMono.cs
-Assets/Script/PersonMono.cs.meta
-GJ2019.csproj
-Library/assetDatabase3
-Library/metadata/5f/5ff0694647753944fbd36734406bfe4c
-Library/metadata/5f/5ff0694647753944fbd36734406bfe4c.info
-Library/ScriptAssemblies/Assembly-CSharp.dll
-Library/ScriptAssemblies/Assembly-CSharp.dll.mdb
-Library/shadercompiler-UnityShaderCompiler.exe0.log
-Library/assetDatabase3
