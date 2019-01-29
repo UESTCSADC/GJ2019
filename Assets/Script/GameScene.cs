@@ -91,4 +91,9 @@ public class GameScene : MonoBehaviour
 
         isInformationOn = !isInformationOn;
     }
+
+    public void ClickNothing()
+    {
+        PersonMono.clickNothing();
+    }
 }
