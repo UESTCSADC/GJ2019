@@ -7,7 +7,8 @@ public class Click : MonoBehaviour {
 
     // Use this for initialization
     //public Sprite s;
-    public Animator a;
+    public Animator an;
+    public AudioSource au;
 	void Start () {
 		
 	}
@@ -17,7 +18,8 @@ public class Click : MonoBehaviour {
 		if(Input.GetMouseButtonDown(0))
         {
             this.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
-            a.Play("Click");
+            an.Play("Click");
+            au.Play();
             
         }
 	}

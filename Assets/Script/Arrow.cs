@@ -7,6 +7,7 @@ public class Arrow : MonoBehaviour {
 
     // Use this for initialization
     int i = 0;
+    public AudioSource au;
 	void Start () {
 		
 	}
@@ -15,15 +16,17 @@ public class Arrow : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Vector3 v = new Vector3(-1.6f, -1.45f,0);
+            Vector3 v = new Vector3(-3.5f, -1.8f,0);
             transform.position = v;
             i = 0;
+            au.Play();
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Vector3 v = new Vector3(-1.6f, -2.3f, 0);
+            Vector3 v = new Vector3(-3.5f, -3.2f, 0);
             transform.position = v;
             i = 1;
+            au.Play();
         }
         if(Input.GetKeyDown(KeyCode.Return))
         {
@@ -36,5 +39,15 @@ public class Arrow : MonoBehaviour {
                 Application.Quit();
             }
         }
+    }
+
+    public void EnterGame()
+    {
+        SceneManager.LoadScene("play");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
