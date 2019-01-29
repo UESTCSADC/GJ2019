@@ -17,9 +17,11 @@ public class Player : Person
         return playerInstance;
     }
 
-    public Player():base(0,"Player")
+    public Player():base(1,"Player")
     {
         friendList = new List<RelationShip>();
+        Person.persons.Add(this);
+        
     }
 
     //方法
@@ -32,6 +34,4 @@ public class Player : Person
     {
         return b_social * 0.5f;
     }
-
-
 }

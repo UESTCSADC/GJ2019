@@ -55,11 +55,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BaseLineSize: 1
-    - _BaseRadius: 177.91
+    - _BaseLineSize: 10
+    - _BaseRadius: 800
     - _BumpScale: 1
-    - _CoreLineSize: 1
-    - _CoreRadius: 0
+    - _CoreLineSize: 10
+    - _CoreRadius: 400
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -77,9 +77,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 0.47794116, b: 0.47794116, a: 0.322}
-    - _BaseLineColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Center: {r: 999.9511, g: 471.84824, b: 100, a: 0}
+    - _BaseLineColor: {r: 0.78676474, g: 0.5785035, b: 0.5785035, a: 0.978}
+    - _Center: {r: 960, g: 540, b: 100, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _CoreColor: {r: 1, g: 1, b: 1, a: 1}
-    - _CoreLineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _CoreColor: {r: 0.56747407, g: 0.6164419, b: 0.9411765, a: 0.509}
+    - _CoreLineColor: {r: 0.28308824, g: 0.4586207, b: 0.875, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
