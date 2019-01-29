@@ -78,7 +78,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 0.47794116, b: 0.47794116, a: 0.322}
     - _BaseLineColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Center: {r: 1156.2937, g: 758.0521, b: 100, a: 0}
+    - _Center: {r: 960, g: 540, b: 100, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CoreColor: {r: 1, g: 1, b: 1, a: 1}
     - _CoreLineColor: {r: 0, g: 0, b: 0, a: 0}

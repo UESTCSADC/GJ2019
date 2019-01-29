@@ -14,6 +14,8 @@
 
 		_LineSize("LineSize",Float) = 0
 		_LineColor("LineColor", Color) = (0,0,0,1)
+
+		_AreaColor("AreaColor", Color) = (0,0,0,1)
 	}
 	SubShader
 	{
@@ -59,6 +61,8 @@
 			float _LineSize;
 			float4 _LineColor;
 
+			float4 _AreaColor;
+
 			v2f vert (appdata v)
 			{
 				v2f o;
@@ -72,17 +76,25 @@
 				// sample the texture
 				float4 col = float4(0,0,0,0);
 				//Sta 上 Int 左 Soc 下 Acq 右
-				float2 AcqDot = float2(0.5 + _Acq * 0.5f,0.5);
-				float2 SocDot = float2(0.5,0.5 - _Soc * 0.5f);
-				float2 IntDot = float2(0.5 - _Int * 0.5f,0.5);
-				float2 StaDot = float2(0.5,0.5 + _Sta * 0.5f);
+				float3 AcqDot = float3(0.5 + _Acq * 0.5f,0.5,0);
+				float3 SocDot = float3(0.5,0.5 - _Soc * 0.5f,0);
+				float3 IntDot = float3(0.5 - _Int * 0.5f,0.5,0);
+				float3 StaDot = float3(0.5,0.5 + _Sta * 0.5f,0);
+
+				float3 uv3 = float3(i.uv.x, i.uv.y, 0);
+				//Area
+				bool InArea = cross((StaDot - uv3), (AcqDot - StaDot)).z < 0 &&
+					cross((AcqDot - uv3), (SocDot - AcqDot)).z < 0 &&
+					cross((SocDot - uv3), (IntDot - SocDot)).z < 0 &&
+					cross((IntDot - uv3), (StaDot - IntDot)).z < 0;
+				col = InArea ? _AreaColor : col;
+
+				//Dot
 				bool isDot = length(i.uv - StaDot) < _DotRadius ||
-					length(i.uv - IntDot) < _DotRadius	||
-					length(i.uv - SocDot) < _DotRadius	||
+					length(i.uv - IntDot) < _DotRadius ||
+					length(i.uv - SocDot) < _DotRadius ||
 					length(i.uv - AcqDot) < _DotRadius;
 				col = isDot ? _DotColor : col;
-
-				//Line 
 
 				return col;
 			}
