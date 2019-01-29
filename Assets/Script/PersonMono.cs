@@ -23,8 +23,8 @@ public class PersonMono : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
 
     public static void clickNothing()
     {
-        PersonTalkPanel.SetActive(false);
-        PlayerTalkPanel.SetActive(false);
+        PersonTalkPanel.GetComponent<TalkPanel>().CloseTlkPanel();
+        PlayerTalkPanel.GetComponent<TalkPanel>().CloseTlkPanel();
         m_PersonInformation.SetActive(false);
     }
 
@@ -40,14 +40,14 @@ public class PersonMono : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
         if (PersonTalkPanel == null)
         {
             PersonTalkPanel = GameObject.Find("PersonTalkPanel");
-            PersonTalkPanel.SetActive(false);
+            PersonTalkPanel.GetComponent<TalkPanel>().CloseTlkPanel();
         }
 
         if (PlayerTalkPanel == null)
         {
             PlayerTalkPanel = GameObject.Find("PlayerTalkPanel");
             PlayerTalkPanel.GetComponent<TalkPanel>().Target = GameScene.m_Player;
-            PlayerTalkPanel.SetActive(false);
+            PlayerTalkPanel.GetComponent<TalkPanel>().CloseTlkPanel();
         }
 
         leftClick = new UnityEvent();
@@ -122,13 +122,11 @@ public class PersonMono : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
     public void TalkWith()
     {
         //生成对话框
-        PersonTalkPanel.SetActive(true);
         PersonTalkPanel.transform.localPosition = transform.localPosition + new Vector3(150, 100, 0);
         PersonTalkPanel.GetComponent<TalkPanel>().Target = gameObject;
-        PersonTalkPanel.transform.Find("Text").GetComponent<Text>().text = m_person.nextTalk.ToString() + "来不来";
+        PersonTalkPanel.GetComponent<TalkPanel>().OpenTalkPanel(m_person.nextTalk.ToString() + "来不来");
 
-        PlayerTalkPanel.SetActive(true);
-        PlayerTalkPanel.transform.Find("Text").GetComponent<Text>().text = GameScene.m_Player.GetComponent<PersonMono>().m_person.nextTalk.ToString() + "来不来";
+        PlayerTalkPanel.GetComponent<TalkPanel>().OpenTalkPanel(GameScene.m_Player.GetComponent<PersonMono>().m_person.nextTalk.ToString() + "来不来");
         //生成选项
         PlayerTalkPanel.transform.Find("Selection0").Find("Text").GetComponent<Text>().text = m_person.nextTalk.ToString();
         PlayerTalkPanel.transform.Find("Selection1").Find("Text").GetComponent<Text>().text =
@@ -148,10 +146,10 @@ public class PersonMono : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
 
     private void ButtonRightClick()
     {
-        if(PlayerTalkPanel.activeInHierarchy)
-            PlayerTalkPanel.SetActive(false);
-        if(PersonTalkPanel.activeInHierarchy)
-            PersonTalkPanel.SetActive(false);
+        if(PlayerTalkPanel.GetComponent<TalkPanel>().show)
+            PlayerTalkPanel.GetComponent<TalkPanel>().CloseTlkPanel();
+        if(PersonTalkPanel.GetComponent<TalkPanel>().show)
+            PersonTalkPanel.GetComponent<TalkPanel>().CloseTlkPanel();
         if (m_person.b_name != "Player")
         {
             if (!m_PersonInformation.activeInHierarchy)
