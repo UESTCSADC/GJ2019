@@ -235,10 +235,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PersonMono.cs" />
     <Compile Include="Assets\Script\Arrow.cs" />
     <Compile Include="Assets\Script\GameScene.cs" />
     <Compile Include="Assets\Script\Person.cs" />
+    <Compile Include="Assets\Script\PersonMono.cs" />
     <Compile Include="Assets\Script\Player.cs" />
   </ItemGroup>
   <ItemGroup>
