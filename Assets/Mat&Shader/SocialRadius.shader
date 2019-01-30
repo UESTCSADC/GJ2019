@@ -70,9 +70,10 @@
 			{
 				float radius = length(i.vertex.xy - _Center.xy);
 				bool core = radius < _CoreRadius;
-				bool coreLine = radius < (_CoreRadius + _CoreLineSize);
+				float2 dir = i.vertex.xy - _Center.xy;
+				bool coreLine = radius < (_CoreRadius + _CoreLineSize) && (int)(atan(dir.y / dir.x) / 3.1415926 * 180.0) % 15 < 7;
 				bool base = radius < _BaseRadius;
-				bool baseLine = radius < (_BaseLineSize + _BaseRadius);
+				bool baseLine = radius < (_BaseLineSize + _BaseRadius) && (int)(-atan(dir.y / dir.x) / 3.1415926 * 180.0) % 15 < 7;
 
 				float4 col = baseLine ? _BaseLineColor : float4(0, 0, 0, 0);
 				col = base ? _BaseColor : col;

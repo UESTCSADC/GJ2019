@@ -17,7 +17,7 @@ public class PersonMono : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
 
     private static GameObject PersonTalkPanel;
     private static GameObject PlayerTalkPanel;
-    private static List<GameObject> PlayerSelection;
+    private static GameObject Selection;
 
     private bool moved;
 
@@ -25,6 +25,7 @@ public class PersonMono : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
     {
         PersonTalkPanel.GetComponent<TalkPanel>().CloseTlkPanel();
         PlayerTalkPanel.GetComponent<TalkPanel>().CloseTlkPanel();
+        Selection.GetComponent<TalkPanel>().CloseTlkPanel();
         m_PersonInformation.SetActive(false);
     }
 
@@ -41,13 +42,20 @@ public class PersonMono : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
         {
             PersonTalkPanel = GameObject.Find("PersonTalkPanel");
             PersonTalkPanel.GetComponent<TalkPanel>().CloseTlkPanel();
+            PersonTalkPanel.GetComponent<TalkPanel>().Target = GameScene.m_Player;
         }
 
         if (PlayerTalkPanel == null)
         {
             PlayerTalkPanel = GameObject.Find("PlayerTalkPanel");
-            PlayerTalkPanel.GetComponent<TalkPanel>().Target = GameScene.m_Player;
             PlayerTalkPanel.GetComponent<TalkPanel>().CloseTlkPanel();
+        }
+
+        if (Selection == null)
+        {
+            Selection = GameObject.Find("Selection");
+            Selection.GetComponent<TalkPanel>().Target = GameScene.m_Player;
+            Selection.GetComponent<TalkPanel>().CloseTlkPanel();
         }
 
         leftClick = new UnityEvent();
@@ -60,6 +68,8 @@ public class PersonMono : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
         rightClick.AddListener(new UnityAction(ButtonRightClick));
 
         isMoving = false;
+        if (!m_person.b_sexual && m_person.b_name != "Player")
+            GetComponent<Image>().sprite = Resources.Load<Sprite>("男");
     }
 
     // Update is called once per frame
@@ -126,14 +136,22 @@ public class PersonMono : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
         PersonTalkPanel.GetComponent<TalkPanel>().Target = gameObject;
         PersonTalkPanel.GetComponent<TalkPanel>().OpenTalkPanel(m_person.nextTalk.ToString() + "来不来");
 
-        PlayerTalkPanel.GetComponent<TalkPanel>().OpenTalkPanel(GameScene.m_Player.GetComponent<PersonMono>().m_person.nextTalk.ToString() + "来不来");
+        //PlayerTalkPanel.GetComponent<TalkPanel>().OpenTalkPanel(GameScene.m_Player.GetComponent<PersonMono>().m_person.nextTalk.ToString() + "来不来");
         //生成选项
-        PlayerTalkPanel.transform.Find("Selection0").Find("Text").GetComponent<Text>().text = m_person.nextTalk.ToString();
-        PlayerTalkPanel.transform.Find("Selection1").Find("Text").GetComponent<Text>().text =
-            GameScene.m_Player.GetComponent<PersonMono>().m_person.nextTalk.ToString();
-        PlayerTalkPanel.transform.Find("Selection2").Find("Text").GetComponent<Text>().text = "告辞";
-        PlayerTalkPanel.GetComponent<TalkPanel>().p = m_person;
-        
+        Selection.transform.Find("Selection0").GetComponent<SelectionButton>().s = Player.getInstance().nextTalk;
+        Selection.transform.Find("Selection0").GetComponent<SelectionButton>().talkTarget = m_person;
+        Selection.transform.Find("Selection0").Find("Text").GetComponent<Text>().text = Player.getInstance().nextTalk.ToString();
+        Selection.transform.Find("Selection1").GetComponent<SelectionButton>().s = m_person.nextTalk;
+        Selection.transform.Find("Selection1").GetComponent<SelectionButton>().talkTarget = m_person;
+        Selection.transform.Find("Selection1").Find("Text").GetComponent<Text>().text = m_person.nextTalk.ToString();
+        Selection.transform.Find("Selection2").GetComponent<SelectionButton>().s = Person.SkillList.None;
+        Selection.transform.Find("Selection2").GetComponent<SelectionButton>().talkTarget = m_person;
+        Selection.transform.Find("Selection2").Find("Text").GetComponent<Text>().text = "告辞";
+        Selection.GetComponent<TalkPanel>().p = m_person;
+        Selection.GetComponent<TalkPanel>().OpenTalkPanel("");
+        PlayerTalkPanel.GetComponent<TalkPanel>().CloseTlkPanel();
+
+
     }
 
     private void ButtonLeftClick()

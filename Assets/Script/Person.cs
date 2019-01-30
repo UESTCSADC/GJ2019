@@ -427,6 +427,7 @@ public class Person
                 LineRenderer lr = rs.LineRender.GetComponent<LineRenderer>();
                 lr.SetPosition(0, rs.p1.m_PersonMono.gameObject.transform.position);
                 lr.SetPosition(1, rs.p2.m_PersonMono.gameObject.transform.position);
+                lr.material.SetFloat("_Length",rs.Distance);
             }
         }
     }
@@ -455,9 +456,8 @@ public class Person
         R.LineRender = new GameObject();
         R.LineRender.AddComponent<LineRenderer>();
         LineRenderer lr = R.LineRender.GetComponent<LineRenderer>();
-        lr.startWidth = 0.1f;
-        lr.endWidth = 0.1f;
         R.LineRender.layer = 5;
+        lr.material = Resources.Load<Material>("Line");
 
         p1.GetComponent<PersonMono>().m_person.friendList.Add(R);
         p2.GetComponent<PersonMono>().m_person.friendList.Add(R);

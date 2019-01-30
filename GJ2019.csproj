@@ -248,7 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\backGround.cs" />
-    <Compile Include="Assets\Resources\DataBase.cs" />
+    <Compile Include="Assets\Resources\MyDataBase.cs" />
     <Compile Include="Assets\Script\Arrow.cs" />
     <Compile Include="Assets\Script\Click.cs" />
     <Compile Include="Assets\Script\GameScene.cs" />
@@ -260,6 +260,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Mat&amp;Shader\BaseFore.shader" />
+    <None Include="Assets\Mat&amp;Shader\Line.shader" />
     <None Include="Assets\Mat&amp;Shader\SkillBar.shader" />
     <None Include="Assets\Mat&amp;Shader\SocialRadius.shader" />
   </ItemGroup>
